@@ -1,1 +1,1 @@
-# meteo_app
+# weather_app
