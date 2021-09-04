@@ -11,17 +11,43 @@ body {
   height: 100%;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 main {
-  margin: 20px 0 20 0;
-  width: 60%;
+  display: grid;
+  grid-template-columns: 20% repeat(11, 1fr) 20%;
+  grid-template-rows: 80px 50px 100px repeat(4, 1fr);
 }
 
-.topContainer {
-  display: flex;
+h1 {
+  grid-column: 2 / 13;
+  justify-self: center;
+}
+
+.bannerMeteoContainer {
+  grid-column: span 2;
+}
+
+#citySelect {
+  grid-column: 2 / 5;
+  border: 1px black solid;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.cityHeader {
+  grid-column: 2 / 8;
+  grid-row: 3;
+  align-self: center;
+}
+
+.sunriseContainer {
+  grid-column: 9 / 13;
+  grid-row: 3;
+  align-self: center;
+  justify-self: end;
+}
+
+.infoContainer {
+  grid-column: 2 / 6;
+  grid-row: 4;
+  background: cyan;
 }

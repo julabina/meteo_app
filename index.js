@@ -30,6 +30,7 @@ const convertTimeCurrent = (city) => {
 const Displaytest = (city) => {
   const gpsCurrent = document.querySelector(".gpsLoca");
   const currentDt = document.querySelector(".currentTime");
+  const imgWeather = document.querySelector(".weatherImg");
   let dtTimestamp = city.current.dt;
   let dt = new Date(dtTimestamp * 1000);
   let day;
@@ -51,11 +52,16 @@ const Displaytest = (city) => {
     day = "Sunday";
   }
   currentDt.textContent = dt.getHours() + "h" + dt.getMinutes() + "  " + day;
-  let lat = city.lat;
-  let lon = city.lon;
-  gpsCurrent.textContent = lat + " " + lon;
   sunriseCurrentContainer.textContent =
     "Sunrise : " + sunrise.getHours() + "h" + sunrise.getMinutes();
   sunsetCurrentContainer.textContent =
     "Sunset  : " + sunset.getHours() + "h" + sunset.getMinutes();
+  test = city.current.weather[0].icon;
+  description = city.current.weather[0].description;
+  console.log(test);
+  test2 = "http://openweathermap.org/img/wn/" + test + "@2x.png";
+  console.log(description);
+  imgWeather.innerHTML = `
+  <img src="${test2}" alt="${description}">
+  `;
 };

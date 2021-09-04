@@ -11,8 +11,7 @@
 <body>
     <main>
         <h1>Weather App</h1>
-        <div class="topContainer">
-            <select name="" id="">
+            <select name="" id="citySelect">
                 <option value="">Paris</option>
                 <option value="">Sens</option>
                 <option value="">Dijon</option>
@@ -45,18 +44,29 @@
             <div class="bannerMeteoContainer">
                 <h3>Trainel</h3>
             </div>
-        </div>
-        <div class="currentContainer">
-            <p class="currentTime"></p>
-            <div class="locaContainer">
+            <div class="cityHeader">
                 <h2 id="city">Trainel</h2>
-                <p class="gpsLoca"></p>
+                <p class="currentTime"></p>
             </div>
             <div class="sunriseContainer">
                 <p class="sunrise"></p>
                 <p class="sunset"></p>
             </div>
-        </div>
+            <div class="infosContainer">
+                <p class="weatherDescription"></p>
+                <div class="infosContainer-infos">
+                    <div class="weatherImg"></div>
+                    <div class="temperatureContainer">
+                        <p class="temperature"></p>
+                        <p class="feeling"></p>
+                    </div>
+                    <div class="otherContainer">
+                        <p class="humidity"></p>
+                        <p class="cloudiness"></p>
+                        <p class="UVIndex"></p>
+                    </div>
+                </div>
+            </div>
     </main>
    
     <script src="index.js"></script>
