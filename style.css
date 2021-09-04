@@ -24,6 +24,7 @@ h1 {
 
 .bannerMeteoContainer {
   grid-column: span 2;
+  border: solid gray 1px;
 }
 
 #citySelect {
@@ -46,8 +47,33 @@ h1 {
   justify-self: end;
 }
 
-.infoContainer {
-  grid-column: 2 / 6;
-  grid-row: 4;
+.infosContainer {
+  grid-column: 2 / 8;
+  grid-row: 4 / 6;
   background: cyan;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.infosContainer-infos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftContainerInfos {
+  display: flex;
+}
+
+.temperatureContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.otherContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
