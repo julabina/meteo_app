@@ -1,4 +1,7 @@
-let trainel, paris;
+const sunriseCurrentContainer = document.querySelector(".sunrise");
+const sunsetCurrentContainer = document.querySelector(".sunset");
+
+let trainel, paris, sunrise, sunset;
 
 fetch(
   "https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
@@ -15,29 +18,44 @@ fetch(
   .then((res) => res.json())
   .then((data) => {
     paris = data;
-    console.log(paris);
   });
 
-const test = (city) => {
+const convertTimeCurrent = (city) => {
   let sunriseTimestamp = city.current.sunrise;
-  let date = new Date(sunriseTimestamp);
-  console.log(sunriseTimestamp);
-  console.log(date);
-  console.log(date.getHours());
-  console.log(date.getMinutes());
-  console.log(date.getSeconds());
   let sunsetTimestamp = city.current.sunset;
-  let date2 = new Date(sunsetTimestamp);
-  console.log(sunsetTimestamp);
-  console.log(date2);
-  console.log(date2.getHours());
-  console.log(date2.getMinutes());
-  console.log(date2.getSeconds());
-  let sunriseD0Timestamp = city.daily[0].moonrise;
-  let date3 = new Date(sunriseD0Timestamp);
-  console.log(sunriseD0Timestamp);
-  console.log(date3);
-  console.log(date3.getHours());
-  console.log(date3.getMinutes());
-  console.log(date3.getSeconds());
+  sunrise = new Date(sunriseTimestamp * 1000);
+  sunset = new Date(sunsetTimestamp * 1000);
+};
+
+const Displaytest = (city) => {
+  const gpsCurrent = document.querySelector(".gpsLoca");
+  const currentDt = document.querySelector(".currentTime");
+  let dtTimestamp = city.current.dt;
+  let dt = new Date(dtTimestamp * 1000);
+  let day;
+  let dayStamp = dt.getDay();
+  if (dayStamp === 0) {
+  } else if (dayStamp === 1) {
+    day = "Monday";
+  } else if (dayStamp === 2) {
+    day = "Tuesday";
+  } else if (dayStamp === 3) {
+    day = "Wednesday";
+  } else if (dayStamp === 4) {
+    day = "Thursday";
+  } else if (dayStamp === 5) {
+    day = "Friday";
+  } else if (dayStamp === 6) {
+    day = "Saturday";
+  } else {
+    day = "Sunday";
+  }
+  currentDt.textContent = dt.getHours() + "h" + dt.getMinutes() + "  " + day;
+  let lat = city.lat;
+  let lon = city.lon;
+  gpsCurrent.textContent = lat + " " + lon;
+  sunriseCurrentContainer.textContent =
+    "Sunrise : " + sunrise.getHours() + "h" + sunrise.getMinutes();
+  sunsetCurrentContainer.textContent =
+    "Sunset  : " + sunset.getHours() + "h" + sunset.getMinutes();
 };
