@@ -78,8 +78,13 @@ h1 {
   justify-content: center;
 }
 
-.otherContainer {
+.windContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.rightInfosContainer {
+  grid-column: 9 / 13;
+  grid-row: 4 / 6;
 }

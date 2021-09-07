@@ -40,6 +40,8 @@ const Displaytest = (city) => {
   const currentHumidity = document.querySelector(".humidity");
   const currentCloudiness = document.querySelector(".cloudiness");
   const currentUVIndex = document.querySelector(".UVIndex");
+  const currentSpeedWind = document.querySelector(".windSpeed");
+  const currentWindDeg = document.querySelector(".windDeg");
 
   let tempRounded, feelRounded;
 
@@ -81,4 +83,15 @@ const Displaytest = (city) => {
   currentHumidity.textContent = city.current.humidity + "%";
   currentCloudiness.textContent = city.current.clouds + "%";
   currentUVIndex.textContent = city.current.uvi;
+  let speedWind = Math.round(city.current.wind_speed);
+  let gustWind = Math.round(city.current.wind_gust);
+  currentSpeedWind.textContent = speedWind + " - " + gustWind + " km/h";
+  let windDegre = city.current.wind_deg;
+  if (windDegre < 180) {
+    console.log(windDegre);
+    currentWindDeg.textContent = "South";
+  } else {
+    console.log(windDegre);
+    currentWindDeg.textContent = "Nord";
+  }
 };
