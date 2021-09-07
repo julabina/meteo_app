@@ -83,15 +83,42 @@ const Displaytest = (city) => {
   currentHumidity.textContent = city.current.humidity + "%";
   currentCloudiness.textContent = city.current.clouds + "%";
   currentUVIndex.textContent = city.current.uvi;
+
   let speedWind = Math.round(city.current.wind_speed);
   let gustWind = Math.round(city.current.wind_gust);
   currentSpeedWind.textContent = speedWind + " - " + gustWind + " km/h";
   let windDegre = city.current.wind_deg;
-  if (windDegre < 180) {
-    console.log(windDegre);
+  if (windDegre >= 348 && windDegre <= 11) {
+    currentWindDeg.textContent = "North";
+  } else if (windDegre > 11 && windDegre < 33) {
+    currentWindDeg.textContent = "North - North east";
+  } else if (windDegre >= 33 && windDegre <= 56) {
+    currentWindDeg.textContent = "North east";
+  } else if (windDegre > 56 && windDegre < 78) {
+    currentWindDeg.textContent = "East - North east";
+  } else if (windDegre >= 78 && windDegre <= 101) {
+    currentWindDeg.textContent = "East";
+  } else if (windDegre > 101 && windDegre < 123) {
+    currentWindDeg.textContent = "East - South east";
+  } else if (windDegre >= 123 && windDegre <= 146) {
+    currentWindDeg.textContent = "South east";
+  } else if (windDegre > 146 && windDegre < 168) {
+    currentWindDeg.textContent = "South - South east";
+  } else if (windDegre >= 168 && windDegre <= 191) {
     currentWindDeg.textContent = "South";
+  } else if (windDegre > 191 && windDegre < 213) {
+    currentWindDeg.textContent = "South - South West";
+  } else if (windDegre >= 213 && windDegre <= 236) {
+    currentWindDeg.textContent = "South West";
+  } else if (windDegre > 236 && windDegre < 258) {
+    currentWindDeg.textContent = "West - South West";
+  } else if (windDegre >= 258 && windDegre <= 281) {
+    currentWindDeg.textContent = "West";
+  } else if (windDegre > 281 && windDegre < 303) {
+    currentWindDeg.textContent = "West - North west";
+  } else if (windDegre >= 303 && windDegre <= 326) {
+    currentWindDeg.textContent = "North west";
   } else {
-    console.log(windDegre);
-    currentWindDeg.textContent = "Nord";
+    currentWindDeg.textContent = "North - North west";
   }
 };
