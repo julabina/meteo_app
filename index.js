@@ -26,7 +26,7 @@ const convertTimeCurrent = (city) => {
   sunset = new Date(sunsetTimestamp * 1000);
 };
 
-const Displaytest = (city) => {
+const DisplayTop = (city) => {
   convertTimeCurrent(city);
   const currentSunriseContainer = document.querySelector(".sunrise");
   const currentSunsetContainer = document.querySelector(".sunset");
@@ -130,5 +130,121 @@ const Displaytest = (city) => {
     currentAlertContainer.textContent = alert + " alert now ";
   } else {
     currentAlertContainer.textContent = alert + " alerts now ";
+  }
+};
+
+const displayWeek = (city) => {
+  const weekTitlesDays = document.querySelectorAll(".weekTitle");
+  const weekDatesDays = document.querySelectorAll(".weekDate");
+  const weekImagesDays = document.querySelectorAll(".weekImage");
+  const weekTempsDays = document.querySelectorAll(".weekTemp");
+  const weekWindsDays = document.querySelectorAll(".weekWind");
+  const weekWindSpeedsDays = document.querySelectorAll(".weekWindSpeed");
+
+  for (i = 1; i < city.daily.length; i++) {
+    a = i - 1;
+    weekDtTimestamp = city.daily[i].dt;
+    weekDt = new Date(weekDtTimestamp * 1000);
+    let weekToday, weekMonth;
+    let weekDayNumber = weekDt.getDate();
+    let weekDayStamp = weekDt.getDay();
+    let weekMonthStamp = weekDt.getMonth();
+
+    if (weekDayStamp === 0) {
+      weekToday = "Sunday";
+    } else if (weekDayStamp === 1) {
+      weekToday = "Monday";
+    } else if (weekDayStamp === 2) {
+      weekToday = "Tuesday";
+    } else if (weekDayStamp === 3) {
+      weekToday = "Wednesday";
+    } else if (weekDayStamp === 4) {
+      weekToday = "Thursday";
+    } else if (weekDayStamp === 5) {
+      weekToday = "Friday";
+    } else if (weekDayStamp === 6) {
+      weekToday = "Saturday";
+    }
+    if (i === 1) {
+      weekTitlesDays[0].textContent = "Tomorrow";
+    } else {
+      weekTitlesDays[a].textContent = weekToday;
+    }
+    if (weekMonthStamp === 0) {
+      weekMonth = "Jan";
+    } else if (weekMonthStamp === 1) {
+      weekMonth = "Feb";
+    } else if (weekMonthStamp === 2) {
+      weekMonth = "Mar";
+    } else if (weekMonthStamp === 3) {
+      weekMonth = "Apr";
+    } else if (weekMonthStamp === 4) {
+      weekMonth = "May";
+    } else if (weekMonthStamp === 5) {
+      weekMonth = "Jun";
+    } else if (weekMonthStamp === 6) {
+      weekMonth = "Jul";
+    } else if (weekMonthStamp === 7) {
+      weekMonth = "Aug";
+    } else if (weekMonthStamp === 8) {
+      weekMonth = "Sep";
+    } else if (weekMonthStamp === 9) {
+      weekMonth = "Oct";
+    } else if (weekMonthStamp === 10) {
+      weekMonth = "Nov";
+    } else if (weekMonthStamp === 11) {
+      weekMonth = "Dec";
+    }
+    weekDatesDays[a].textContent = weekMonth + " " + weekDayNumber;
+    weekCurrentIcon = city.daily[a].weather[0].icon;
+    weekDescription = city.daily[a].weather[0].description;
+    weekImageDaily =
+      "http://openweathermap.org/img/wn/" + weekCurrentIcon + "@2x.png";
+    weekImagesDays[
+      a
+    ].innerHTML = `<img src="${weekImageDaily}" alt="${weekDescription}">`;
+    let weekTempMax = Math.round(city.daily[a].temp.max);
+    let weekTempMin = Math.round(city.daily[a].temp.min);
+    weekTempsDays[a].innerHTML = `
+    <p class="weekTempPara"><span class="weekTempMax">${weekTempMax}</span> / <span class="weekTempMin">${weekTempMin}</span></p>
+    `;
+
+    let weekWindDegre = city.daily[a].wind_deg;
+    if (weekWindDegre >= 348 && weekWindDegre <= 11) {
+      weekWindsDays[a].textContent = "N";
+    } else if (weekWindDegre > 11 && weekWindDegre < 33) {
+      weekWindsDays[a].textContent = "N-NE";
+    } else if (weekWindDegre >= 33 && weekWindDegre <= 56) {
+      weekWindsDays[a].textContent = "NE";
+    } else if (weekWindDegre > 56 && weekWindDegre < 78) {
+      weekWindsDays[a].textContent = "ENE";
+    } else if (weekWindDegre >= 78 && weekWindDegre <= 101) {
+      weekWindsDays[a].textContent = "E";
+    } else if (weekWindDegre > 101 && weekWindDegre < 123) {
+      weekWindsDays[a].textContent = "E-SE";
+    } else if (weekWindDegre >= 123 && weekWindDegre <= 146) {
+      weekWindsDays[a].textContent = "SE";
+    } else if (weekWindDegre > 146 && weekWindDegre < 168) {
+      weekWindsDays[a].textContent = "S-SE";
+    } else if (weekWindDegre >= 168 && weekWindDegre <= 191) {
+      weekWindsDays[a].textContent = "S";
+    } else if (weekWindDegre > 191 && weekWindDegre < 213) {
+      weekWindsDays[a].textContent = "S-SW";
+    } else if (weekWindDegre >= 213 && weekWindDegre <= 236) {
+      weekWindsDays[a].textContent = "SW";
+    } else if (weekWindDegre > 236 && weekWindDegre < 258) {
+      weekWindsDays[a].textContent = "W-SW";
+    } else if (weekWindDegre >= 258 && weekWindDegre <= 281) {
+      weekWindsDays[a].textContent = "W";
+    } else if (weekWindDegre > 281 && weekWindDegre < 303) {
+      weekWindsDays[a].textContent = "W-NW";
+    } else if (weekWindDegre >= 303 && weekWindDegre <= 326) {
+      weekWindsDays[a].textContent = "NW";
+    } else {
+      weekWindsDays[a].textContent = "N-NW";
+    }
+    let weekWindSpeed = Math.round(city.daily[a].wind_speed);
+    let weekWindGust = Math.round(city.daily[a].wind_gust);
+    weekWindSpeedsDays[a].textContent = weekWindSpeed + " - " + weekWindGust;
   }
 };
