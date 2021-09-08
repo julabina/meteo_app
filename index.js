@@ -42,6 +42,7 @@ const Displaytest = (city) => {
   const currentUVIndex = document.querySelector(".UVIndex");
   const currentSpeedWind = document.querySelector(".windSpeed");
   const currentWindDeg = document.querySelector(".windDeg");
+  const currentAlertContainer = document.querySelector(".alertContainer");
 
   let tempRounded, feelRounded;
 
@@ -80,9 +81,9 @@ const Displaytest = (city) => {
   feelRounded = Math.round(city.current.feels_like);
   currentTemp.textContent = tempRounded;
   currentFeeling.textContent = feelRounded;
-  currentHumidity.textContent = city.current.humidity + "%";
-  currentCloudiness.textContent = city.current.clouds + "%";
-  currentUVIndex.textContent = city.current.uvi;
+  currentHumidity.textContent = "Humidity : " + city.current.humidity + "%";
+  currentCloudiness.textContent = "Cloudiness : " + city.current.clouds + "%";
+  currentUVIndex.textContent = "UV " + city.current.uvi;
 
   let speedWind = Math.round(city.current.wind_speed);
   let gustWind = Math.round(city.current.wind_gust);
@@ -120,5 +121,14 @@ const Displaytest = (city) => {
     currentWindDeg.textContent = "North west";
   } else {
     currentWindDeg.textContent = "North - North west";
+  }
+
+  let alert = city.alerts.length;
+  if (alert === 0) {
+    currentAlertContainer.textContent = "No alerts now ";
+  } else if (alert === 1) {
+    currentAlertContainer.textContent = alert + " alert now ";
+  } else {
+    currentAlertContainer.textContent = alert + " alerts now ";
   }
 };
