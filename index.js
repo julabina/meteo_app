@@ -1,4 +1,8 @@
-let trainel, paris, sunrise, sunset, dt, today;
+const trainelBanner = document.querySelector(".bannerTrainel");
+const parisBanner = document.querySelector(".bannerParis");
+const sensBanner = document.querySelector(".bannerSens");
+const londonBanner = document.querySelector(".bannerLondon");
+let trainel, paris, sunrise, sunset, dt, today, cityName;
 
 fetch(
   "https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
@@ -17,6 +21,81 @@ fetch(
     paris = data;
   });
 
+fetch(
+  "https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+)
+  .then((res) => res.json())
+  .then((data) => {
+    sens = data;
+  });
+
+fetch(
+  "https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+)
+  .then((res) => res.json())
+  .then((data) => {
+    london = data;
+  });
+
+const displayBanner = () => {
+  const trainelImg = document.querySelector(".trainelImg");
+  const trainelTemp = document.querySelector(".trainelTemp");
+  const parisImg = document.querySelector(".parisImg");
+  const parisTemp = document.querySelector(".parisTemp");
+  const sensImg = document.querySelector(".sensImg");
+  const sensTemp = document.querySelector(".sensTemp");
+  const londonImg = document.querySelector(".londonImg");
+  const londonTemp = document.querySelector(".londonTemp");
+
+  trainelIcon = trainel.current.weather[0].icon;
+  trainelDescription = trainel.current.weather[0].description;
+  imgTrainel = "http://openweathermap.org/img/wn/" + trainelIcon + "@2x.png";
+  trainelImg.innerHTML = `
+  <img src="${imgTrainel}" alt="${trainelDescription}">
+  `;
+  trainelMax = Math.round(trainel.daily[0].temp.max);
+  trainelMin = Math.round(trainel.daily[0].temp.min);
+  trainelTemp.innerHTML = `
+  <p class="bannerTempPara"><span class="bannerTempMax">${trainelMax}°</span> / <span class="bannerTempMin">${trainelMin}°</span></p>
+  `;
+
+  parisIcon = paris.current.weather[0].icon;
+  parisDescription = paris.current.weather[0].description;
+  imgParis = "http://openweathermap.org/img/wn/" + parisIcon + "@2x.png";
+  parisImg.innerHTML = `
+  <img src="${imgParis}" alt="${parisDescription}">
+  `;
+  parisMax = Math.round(paris.daily[0].temp.max);
+  parisMin = Math.round(paris.daily[0].temp.min);
+  parisTemp.innerHTML = `
+  <p class="bannerTempPara"><span class="bannerTempMax">${parisMax}°</span> / <span class="bannerTempMin">${parisMin}°</span></p>
+  `;
+
+  sensIcon = sens.current.weather[0].icon;
+  sensDescription = sens.current.weather[0].description;
+  imgSens = "http://openweathermap.org/img/wn/" + sensIcon + "@2x.png";
+  sensImg.innerHTML = `
+  <img src="${imgSens}" alt="${sensDescription}">
+  `;
+  sensMax = Math.round(sens.daily[0].temp.max);
+  sensMin = Math.round(sens.daily[0].temp.min);
+  sensTemp.innerHTML = `
+  <p class="bannerTempPara"><span class="bannerTempMax">${sensMax}°</span> / <span class="bannerTempMin">${sensMin}°</span></p>
+  `;
+
+  londonIcon = london.current.weather[0].icon;
+  londonDescription = london.current.weather[0].description;
+  imgLondon = "http://openweathermap.org/img/wn/" + londonIcon + "@2x.png";
+  londonImg.innerHTML = `
+  <img src="${imgLondon}" alt="${londonDescription}">
+  `;
+  londonMax = Math.round(london.daily[0].temp.max);
+  londonMin = Math.round(london.daily[0].temp.min);
+  londonTemp.innerHTML = `
+  <p class="bannerTempPara"><span class="bannerTempMax">${londonMax}°</span> / <span class="bannerTempMin">${londonMin}°</span></p>
+  `;
+};
+
 const convertTimeCurrent = (city) => {
   let sunriseTimestamp = city.current.sunrise;
   let sunsetTimestamp = city.current.sunset;
@@ -28,6 +107,7 @@ const convertTimeCurrent = (city) => {
 
 const DisplayTop = (city) => {
   convertTimeCurrent(city);
+  displayBanner();
   const currentSunriseContainer = document.querySelector(".sunrise");
   const currentSunsetContainer = document.querySelector(".sunset");
   const currentDt = document.querySelector(".currentTime");
@@ -43,6 +123,7 @@ const DisplayTop = (city) => {
   const currentSpeedWind = document.querySelector(".windSpeed");
   const currentWindDeg = document.querySelector(".windDeg");
   const currentAlertContainer = document.querySelector(".alertContainer");
+  const currentCity = document.getElementById("city");
 
   let tempRounded, feelRounded;
 
@@ -79,8 +160,8 @@ const DisplayTop = (city) => {
   CurrentDescriptionWeather.textContent = city.current.weather[0].description;
   tempRounded = Math.round(city.current.temp);
   feelRounded = Math.round(city.current.feels_like);
-  currentTemp.textContent = tempRounded;
-  currentFeeling.textContent = feelRounded;
+  currentTemp.textContent = tempRounded + "°";
+  currentFeeling.textContent = feelRounded + "°";
   currentHumidity.textContent = "Humidity : " + city.current.humidity + "%";
   currentCloudiness.textContent = "Cloudiness : " + city.current.clouds + "%";
   currentUVIndex.textContent = "UV " + city.current.uvi;
@@ -123,14 +204,19 @@ const DisplayTop = (city) => {
     currentWindDeg.textContent = "North - North west";
   }
 
-  let alert = city.alerts.length;
-  if (alert === 0) {
-    currentAlertContainer.textContent = "No alerts now ";
-  } else if (alert === 1) {
-    currentAlertContainer.textContent = alert + " alert now ";
+  if (city.alerts != undefined) {
+    let alert = city.alerts.length;
+    if (alert === 0) {
+      currentAlertContainer.textContent = "No alerts now ";
+    } else if (alert === 1) {
+      currentAlertContainer.textContent = alert + " alert now ";
+    } else {
+      currentAlertContainer.textContent = alert + " alerts now ";
+    }
   } else {
-    currentAlertContainer.textContent = alert + " alerts now ";
+    currentAlertContainer.textContent = "No alerts now ";
   }
+  currentCity.textContent = cityName;
 };
 
 const displayWeek = (city) => {
@@ -206,7 +292,7 @@ const displayWeek = (city) => {
     let weekTempMax = Math.round(city.daily[a].temp.max);
     let weekTempMin = Math.round(city.daily[a].temp.min);
     weekTempsDays[a].innerHTML = `
-    <p class="weekTempPara"><span class="weekTempMax">${weekTempMax}</span> / <span class="weekTempMin">${weekTempMin}</span></p>
+    <p class="weekTempPara"><span class="weekTempMax">${weekTempMax}°</span> / <span class="weekTempMin">${weekTempMin}°</span></p>
     `;
 
     let weekWindDegre = city.daily[a].wind_deg;
@@ -248,3 +334,27 @@ const displayWeek = (city) => {
     weekWindSpeedsDays[a].textContent = weekWindSpeed + " - " + weekWindGust;
   }
 };
+
+trainelBanner.addEventListener("click", () => {
+  cityName = "Trainel";
+  DisplayTop(trainel);
+  displayWeek(trainel);
+});
+
+parisBanner.addEventListener("click", () => {
+  cityName = "Paris";
+  DisplayTop(paris);
+  displayWeek(paris);
+});
+
+sensBanner.addEventListener("click", () => {
+  cityName = "Sens";
+  DisplayTop(sens);
+  displayWeek(sens);
+});
+
+londonBanner.addEventListener("click", () => {
+  cityName = "London";
+  DisplayTop(london);
+  displayWeek(london);
+});

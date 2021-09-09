@@ -30,7 +30,77 @@ h1 {
 
 .bannerMeteoContainer {
   grid-column: span 2;
-  border: solid gray 1px;
+  border-top: solid gray 1px;
+  border-bottom: solid gray 1px;
+  border-left: solid gray 1px;
+  display: flex;
+  justify-content: space-around;
+  background: rgb(227, 210, 255);
+}
+
+.bannerTempPara {
+  font-size: 0.9em;
+}
+
+.bannerTempMax {
+  color: red;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+.bannerTempMin {
+  color: blue;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+.bannerInfos {
+  display: flex;
+  flex-direction: column;
+}
+
+.bannerInfos h3 {
+  margin-top: 4px;
+}
+
+.bannerImg img {
+  width: 50px;
+  height: 50px;
+}
+
+.bannerTemp {
+  display: flex;
+  justify-content: end;
+}
+
+.bannerTrainel {
+  border-right: 1px gray solid;
+  border-radius: 0 50px 50px 0;
+  padding-right: 15px;
+}
+
+.bannerTrainel:hover {
+  border: 2px black solid;
+  cursor: pointer;
+}
+
+.bannerSens {
+  border-radius: 50px 0 0 50px;
+}
+
+.bannerSens:hover {
+  border: 2px black solid;
+  cursor: pointer;
+}
+
+.bannerParis:hover {
+  border: 2px black solid;
+  cursor: pointer;
+}
+
+.bannerLondon:hover {
+  border: 2px black solid;
+  cursor: pointer;
 }
 
 #citySelect {
@@ -38,6 +108,10 @@ h1 {
   border: 1px black solid;
   border-radius: 50px;
   margin-right: 10px;
+}
+
+#citySelect {
+  cursor: pointer;
 }
 
 .cityHeader {
@@ -144,4 +218,53 @@ h1 {
   width: 13%;
   height: 100%;
   background: rgb(227, 210, 255);
+}
+
+.weekTitle {
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.weekDate {
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.weekImage {
+  display: flex;
+  justify-content: center;
+}
+
+.weekTempPara {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.weekTempMax {
+  color: red;
+  font-weight: 700;
+}
+
+.weekTempMin {
+  color: blue;
+  font-weight: 700;
+}
+
+.weekWind {
+  text-align: center;
+  font-weight: 600;
+  margin: 15px 0 10px 0;
+  font-size: 0.9em;
+}
+
+.weekWindSpeed {
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.weekKmH {
+  text-align: center;
+  font-size: 0.9em;
+  margin-bottom: 10px;
 }
