@@ -20,7 +20,7 @@ body {
 main {
   display: grid;
   grid-template-columns: 20% repeat(11, 1fr) 20%;
-  grid-template-rows: 80px 50px 100px repeat(5, 1fr) 40px auto;
+  grid-template-rows: 80px 50px 100px repeat(5, 1fr) 30px auto 30px auto 40px 100px;
 }
 
 h1 {
@@ -274,7 +274,7 @@ h1 {
 
 .hoursDayContainer {
   grid-column: 2 / 13;
-  grid-row-start: 10;
+  grid-row-start: 12;
   border-top: rgba(128, 128, 128, 0.541) 1px solid;
 }
 
@@ -302,6 +302,11 @@ h1 {
   margin-right: 20%;
 }
 
+.rainContainer {
+  grid-column: 2 / 13;
+  grid-row-start: 10;
+}
+
 .hour {
   font-size: 0.9em;
   line-height: 50px;
@@ -312,4 +317,22 @@ h1 {
   line-height: 50px;
   white-space: nowrap;
   margin-right: 20px;
+}
+
+.invisible {
+  display: none;
+}
+
+.rain {
+  display: flex;
+  justify-content: space-around;
+  height: 40px;
+  border-top: 1px solid rgba(128, 128, 128, 0.527);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.507);
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.focusBackground {
+  background: rgb(216, 160, 253);
 }

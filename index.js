@@ -2,7 +2,10 @@ const trainelBanner = document.querySelector(".bannerTrainel");
 const parisBanner = document.querySelector(".bannerParis");
 const sensBanner = document.querySelector(".bannerSens");
 const londonBanner = document.querySelector(".bannerLondon");
-let trainel, paris, sunrise, sunset, dt, today, cityName;
+const rainBtn = document.querySelector(".right-rainHours");
+const alertBtn = document.querySelector(".right-alert");
+const rainContainer = document.querySelector(".rainContainer");
+let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
 
 fetch(
   "https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
@@ -367,65 +370,98 @@ const displayHours = (city) => {
 
     let windDegre = city.hourly[i].wind_deg;
     if (windDegre >= 348 && windDegre <= 11) {
-      hourDeg[i].textContent = "North";
+      hourDeg[i].textContent = "N";
     } else if (windDegre > 11 && windDegre < 33) {
-      hourDeg[i].textContent = "North - North east";
+      hourDeg[i].textContent = "N-NE";
     } else if (windDegre >= 33 && windDegre <= 56) {
-      hourDeg[i].textContent = "North east";
+      hourDeg[i].textContent = "NE";
     } else if (windDegre > 56 && windDegre < 78) {
-      hourDeg[i].textContent = "East - North east";
+      hourDeg[i].textContent = "ENE";
     } else if (windDegre >= 78 && windDegre <= 101) {
-      hourDeg[i].textContent = "East";
+      hourDeg[i].textContent = "E";
     } else if (windDegre > 101 && windDegre < 123) {
-      hourDeg[i].textContent = "East - South east";
+      hourDeg[i].textContent = "E-SE";
     } else if (windDegre >= 123 && windDegre <= 146) {
-      hourDeg[i].textContent = "South east";
+      hourDeg[i].textContent = "SE";
     } else if (windDegre > 146 && windDegre < 168) {
-      hourDeg[i].textContent = "South - South east";
+      hourDeg[i].textContent = "S-SE";
     } else if (windDegre >= 168 && windDegre <= 191) {
-      hourDeg[i].textContent = "South";
+      hourDeg[i].textContent = "S";
     } else if (windDegre > 191 && windDegre < 213) {
-      hourDeg[i].textContent = "South - South West";
+      hourDeg[i].textContent = "S-SW";
     } else if (windDegre >= 213 && windDegre <= 236) {
-      hourDeg[i].textContent = "South West";
+      hourDeg[i].textContent = "SW";
     } else if (windDegre > 236 && windDegre < 258) {
-      hourDeg[i].textContent = "West - South West";
+      hourDeg[i].textContent = "W-SW";
     } else if (windDegre >= 258 && windDegre <= 281) {
-      hourDeg[i].textContent = "West";
+      hourDeg[i].textContent = "W";
     } else if (windDegre > 281 && windDegre < 303) {
-      hourDeg[i].textContent = "West - North west";
+      hourDeg[i].textContent = "W-NW";
     } else if (windDegre >= 303 && windDegre <= 326) {
-      hourDeg[i].textContent = "North west";
+      hourDeg[i].textContent = "NW";
     } else {
-      hourDeg[i].textContent = "North - North west";
+      hourDeg[i].textContent = "N-NW";
     }
   }
 };
 
+const displayRain = (city) => {
+  const hourRainContainer = document.querySelectorAll(".hourRain");
+  const precipitationContainer = document.querySelectorAll(".precipitation");
+
+  a = 0;
+  for (let i = 0; i < city.minutely.length; i += 10) {
+    let rainStamp = city.minutely[i].dt;
+    rainDt = new Date(rainStamp * 1000);
+    rainDtHour = rainDt.getHours();
+    rainDtMinute = rainDt.getMinutes();
+    hourRainContainer[a].textContent = rainDtHour + "h" + rainDtMinute;
+    precipitationContainer[a].textContent =
+      "Precipitation : " + city.minutely[i].precipitation + " %";
+    a++;
+  }
+};
+
+const display = (city) => {
+  DisplayTop(city);
+  displayWeek(city);
+  displayHours(city);
+  displayRain(city);
+};
+
 trainelBanner.addEventListener("click", () => {
   cityName = "Trainel";
-  DisplayTop(trainel);
-  displayWeek(trainel);
-  displayHours(trainel);
+  cityLoad = "trainel";
+  display(trainel);
 });
 
 parisBanner.addEventListener("click", () => {
   cityName = "Paris";
-  DisplayTop(paris);
-  displayWeek(paris);
-  displayHours(paris);
+  cityLoad = "paris";
+  display(paris);
 });
 
 sensBanner.addEventListener("click", () => {
   cityName = "Sens";
-  DisplayTop(sens);
-  displayWeek(sens);
-  displayHours(sens);
+  cityLoad = "sens";
+  display(sens);
 });
 
 londonBanner.addEventListener("click", () => {
   cityName = "London";
-  DisplayTop(london);
-  displayWeek(london);
-  displayHours(london);
+  cityLoad = "london";
+  display(london);
 });
+
+rainBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (rainContainer.classList.contains("invisible")) {
+    rainContainer.classList.remove("invisible");
+    rainBtn.classList.add("focusBackground");
+  } else {
+    rainContainer.classList.add("invisible");
+    rainBtn.classList.remove("focusBackground");
+  }
+});
+
+alertBtn.addEventListener("click", () => {});
