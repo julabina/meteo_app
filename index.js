@@ -335,26 +335,97 @@ const displayWeek = (city) => {
   }
 };
 
+const displayHours = (city) => {
+  const hoursContainer = document.querySelectorAll(".hour");
+  const hoursImg = document.querySelectorAll(".hoursImg");
+  const hoursTemp = document.querySelectorAll(".hoursTemp");
+  const hourDesc = document.querySelectorAll(".hourDesc");
+  const hourFeeling = document.querySelectorAll(".hourFeeling");
+  const hourDeg = document.querySelectorAll(".hourWindDeg");
+  const hourSpeed = document.querySelectorAll(".hourWindSpeed");
+
+  for (i = 0; i < city.hourly.length; i++) {
+    let hourStamp = city.hourly[i].dt;
+    hourDt = new Date(hourStamp * 1000);
+    hour = hourDt.getHours();
+
+    hoursContainer[i].textContent = hour + "h00";
+    hoursCurrentIcon = city.hourly[i].weather[0].icon;
+    hoursDescription = city.hourly[i].weather[0].description;
+    hoursImageDaily =
+      "http://openweathermap.org/img/wn/" + hoursCurrentIcon + "@2x.png";
+    hoursImg[i].innerHTML = `
+    <img src="${hoursImageDaily}" alt="${hoursDescription}">
+    `;
+    tempHour = Math.round(city.hourly[i].temp);
+    tempFeeling = Math.round(city.hourly[i].feels_like);
+    hoursTemp[i].textContent = tempHour + "°";
+    hourFeeling[i].textContent = tempFeeling + "°";
+    hourDesc[i].textContent = city.hourly[i].weather[0].description;
+    hourSpeed[i].textContent =
+      city.hourly[i].wind_speed + " - " + city.hourly[i].wind_gust + " Km/H";
+
+    let windDegre = city.hourly[i].wind_deg;
+    if (windDegre >= 348 && windDegre <= 11) {
+      hourDeg[i].textContent = "North";
+    } else if (windDegre > 11 && windDegre < 33) {
+      hourDeg[i].textContent = "North - North east";
+    } else if (windDegre >= 33 && windDegre <= 56) {
+      hourDeg[i].textContent = "North east";
+    } else if (windDegre > 56 && windDegre < 78) {
+      hourDeg[i].textContent = "East - North east";
+    } else if (windDegre >= 78 && windDegre <= 101) {
+      hourDeg[i].textContent = "East";
+    } else if (windDegre > 101 && windDegre < 123) {
+      hourDeg[i].textContent = "East - South east";
+    } else if (windDegre >= 123 && windDegre <= 146) {
+      hourDeg[i].textContent = "South east";
+    } else if (windDegre > 146 && windDegre < 168) {
+      hourDeg[i].textContent = "South - South east";
+    } else if (windDegre >= 168 && windDegre <= 191) {
+      hourDeg[i].textContent = "South";
+    } else if (windDegre > 191 && windDegre < 213) {
+      hourDeg[i].textContent = "South - South West";
+    } else if (windDegre >= 213 && windDegre <= 236) {
+      hourDeg[i].textContent = "South West";
+    } else if (windDegre > 236 && windDegre < 258) {
+      hourDeg[i].textContent = "West - South West";
+    } else if (windDegre >= 258 && windDegre <= 281) {
+      hourDeg[i].textContent = "West";
+    } else if (windDegre > 281 && windDegre < 303) {
+      hourDeg[i].textContent = "West - North west";
+    } else if (windDegre >= 303 && windDegre <= 326) {
+      hourDeg[i].textContent = "North west";
+    } else {
+      hourDeg[i].textContent = "North - North west";
+    }
+  }
+};
+
 trainelBanner.addEventListener("click", () => {
   cityName = "Trainel";
   DisplayTop(trainel);
   displayWeek(trainel);
+  displayHours(trainel);
 });
 
 parisBanner.addEventListener("click", () => {
   cityName = "Paris";
   DisplayTop(paris);
   displayWeek(paris);
+  displayHours(paris);
 });
 
 sensBanner.addEventListener("click", () => {
   cityName = "Sens";
   DisplayTop(sens);
   displayWeek(sens);
+  displayHours(sens);
 });
 
 londonBanner.addEventListener("click", () => {
   cityName = "London";
   DisplayTop(london);
   displayWeek(london);
+  displayHours(london);
 });
