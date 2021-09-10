@@ -149,11 +149,25 @@ const DisplayTop = (city) => {
     today = "Sunday";
   }
 
-  currentDt.textContent = dt.getHours() + "h" + dt.getMinutes() + "  " + today;
+  currentDtGetHour = dt.getHours();
+  currentDtGetHour = ("0" + currentDtGetHour).slice(-2);
+  currentDtGetMinute = dt.getMinutes();
+  currentDtGetMinute = ("0" + currentDtGetMinute).slice(-2);
+  sunriseDtGetHour = sunrise.getHours();
+  sunriseDtGetHour = ("0" + sunriseDtGetHour).slice(-2);
+  sunriseDtGetMinute = sunrise.getMinutes();
+  sunriseDtGetMinute = ("0" + sunriseDtGetMinute).slice(-2);
+  sunsetDtGetHour = sunset.getHours();
+  sunsetDtGetHour = ("0" + sunsetDtGetHour).slice(-2);
+  sunsetDtGetMinute = sunset.getMinutes();
+  sunsetDtGetMinute = ("0" + sunsetDtGetMinute).slice(-2);
+
+  currentDt.textContent =
+    currentDtGetHour + "h" + currentDtGetMinute + "  " + today;
   currentSunriseContainer.textContent =
-    "Sunrise : " + sunrise.getHours() + "h" + sunrise.getMinutes();
+    "Sunrise : " + sunriseDtGetHour + "h" + sunriseDtGetMinute;
   currentSunsetContainer.textContent =
-    "Sunset  : " + sunset.getHours() + "h" + sunset.getMinutes();
+    "Sunset  : " + sunsetDtGetHour + "h" + sunsetDtGetMinute;
   currentIcon = city.current.weather[0].icon;
   description = city.current.weather[0].description;
   imgCurrent = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
@@ -351,7 +365,7 @@ const displayHours = (city) => {
     let hourStamp = city.hourly[i].dt;
     hourDt = new Date(hourStamp * 1000);
     hour = hourDt.getHours();
-
+    hour = ("0" + hour).slice(-2);
     hoursContainer[i].textContent = hour + "h00";
     hoursCurrentIcon = city.hourly[i].weather[0].icon;
     hoursDescription = city.hourly[i].weather[0].description;
@@ -414,12 +428,30 @@ const displayRain = (city) => {
     let rainStamp = city.minutely[i].dt;
     rainDt = new Date(rainStamp * 1000);
     rainDtHour = rainDt.getHours();
+    rainDtHour = ("0" + rainDtHour).slice(-2);
     rainDtMinute = rainDt.getMinutes();
+    rainDtMinute = ("0" + rainDtMinute).slice(-2);
     hourRainContainer[a].textContent = rainDtHour + "h" + rainDtMinute;
     precipitationContainer[a].textContent =
       "Precipitation : " + city.minutely[i].precipitation + " %";
     a++;
   }
+};
+
+const displayAlert = (city) => {
+  const alertContainer = document.querySelector(".alertContainer");
+  const alertName = document.querySelector(".alertCityName");
+  console.log(alertName);
+  alertName.textContent = cityName;
+  alertContainer.innerHTML = `<p>hello</p>`;
+};
+
+const alertPop = (city) => {
+  window.open(
+    "alert.html",
+    "Alert",
+    "width=auto,height=auto,menubar = no, scrollbars = no"
+  );
 };
 
 const display = (city) => {
@@ -464,4 +496,6 @@ rainBtn.addEventListener("click", (e) => {
   }
 });
 
-alertBtn.addEventListener("click", () => {});
+alertBtn.addEventListener("click", () => {
+  alertPop(trainel);
+});
