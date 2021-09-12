@@ -497,5 +497,11 @@ rainBtn.addEventListener("click", (e) => {
 });
 
 alertBtn.addEventListener("click", () => {
+  console.log(trainel.alerts.length);
+  let alertss = cityLoad.alerts.length;
+  console.log(alertss);
+  if (alertss === 0) {
+    console.log("test");
+  }
   alertPop(trainel);
 });
