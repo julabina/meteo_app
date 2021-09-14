@@ -448,17 +448,37 @@ const displayAlert = (city) => {
 };
 
 const alertPop = (city) => {
-  alertEvent = city.alerts[0].event;
-  alertSender = city.alerts[0].sender_name;
-  alertDescription = city.alerts[0].description;
   let alertWindow = window.open(
     "alert.html",
     "alert",
     "width=auto,height=auto,menubar = no, scrollbars = no, location = no"
   );
-  alertWindow.document.write(alertEvent);
-  alertWindow.document.write(alertSender);
-  alertWindow.document.write(alertDescription);
+  alertWindow.document.write('<link rel="stylesheet" href="style.css">');
+  alertWindow.document.write("<title>Alerts " + cityName + "</title>");
+  alertWindow.document.write(
+    '<body> <h1 style="text-align : center">' +
+      cityName +
+      " alerts </h1><br><br><br>"
+  );
+
+  for (i = 0; i < city.alerts.length; i++) {
+    alertEvent = city.alerts[i].event;
+    alertSender = city.alerts[i].sender_name;
+    alertDescription = city.alerts[i].description;
+
+    alertWindow.document.write(
+      '<h2 style="text-align : center">' + alertEvent + "</h2><br><br><br>"
+    );
+    alertWindow.document.write(
+      '<p style="margin : 0 40px 0 40px">Alert by ' +
+        alertSender +
+        "</p><br><br>"
+    );
+    alertWindow.document.write(
+      '<p style="margin : 0 40px 0 40px">' + alertDescription + "</p><br><br>"
+    );
+  }
+  alertWindow.document.write("</body>");
 };
 
 const display = (city) => {
@@ -473,9 +493,7 @@ const alertDefined = (city) => {
   if (alertss === undefined) {
     alert("No alerts for now");
   } else {
-    console.log("12121212");
     alertPop(city);
-    console.log("azazazaza");
   }
 };
 
