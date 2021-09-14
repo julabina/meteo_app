@@ -424,7 +424,7 @@ const displayRain = (city) => {
   const precipitationContainer = document.querySelectorAll(".precipitation");
 
   a = 0;
-  for (let i = 0; i < city.minutely.length; i += 10) {
+  for (let i = 0; i <= 50; i += 10) {
     let rainStamp = city.minutely[i].dt;
     rainDt = new Date(rainStamp * 1000);
     rainDtHour = rainDt.getHours();
@@ -496,12 +496,30 @@ rainBtn.addEventListener("click", (e) => {
   }
 });
 
-alertBtn.addEventListener("click", () => {
-  console.log(trainel.alerts.length);
-  let alertss = cityLoad.alerts.length;
+const alertsDisplay = (city) => {
+  console.log(typeof sens);
+  console.log(typeof city);
+  let a = city.alerts;
+  console.log(typeof a);
+  console.log(a);
+  let alertss = city.alerts;
   console.log(alertss);
-  if (alertss === 0) {
+  if (alertss === undefined) {
     console.log("test");
+  } else {
+    alertPop(trainel);
   }
-  alertPop(trainel);
+};
+
+alertBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (cityLoad == "sens") {
+    alertsDisplay(sens);
+  } else if (cityLoad == "paris") {
+    alertsDisplay(paris);
+  } else if (cityLoad == "london") {
+    alertsDisplay(london);
+  } else if (cityLoad == "trainel") {
+    alertsDisplay(trainel);
+  }
 });
