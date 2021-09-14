@@ -439,19 +439,23 @@ const displayRain = (city) => {
 };
 
 const displayAlert = (city) => {
-  const alertContainer = document.querySelector(".alertContainer");
+  const alertContainer = document.querySelector(".alertMessageContainer");
   const alertName = document.querySelector(".alertCityName");
   console.log(alertName);
+  console.log(alertContainer);
   alertName.textContent = cityName;
   alertContainer.innerHTML = `<p>hello</p>`;
 };
 
 const alertPop = (city) => {
-  window.open(
+  let alertWindow = window.open(
     "alert.html",
-    "Alert",
+    "alert",
     "width=auto,height=auto,menubar = no, scrollbars = no"
   );
+  alertWindow.onload = function () {
+    alertWindow.window.displayAlert(city);
+  };
 };
 
 const display = (city) => {
@@ -459,6 +463,17 @@ const display = (city) => {
   displayWeek(city);
   displayHours(city);
   displayRain(city);
+};
+
+const alertDefined = (city) => {
+  let alertss = city.alerts;
+  if (alertss === undefined) {
+    alert("No alerts for now");
+  } else {
+    console.log("12121212");
+    alertPop(city);
+    console.log("azazazaza");
+  }
 };
 
 trainelBanner.addEventListener("click", () => {
@@ -496,30 +511,15 @@ rainBtn.addEventListener("click", (e) => {
   }
 });
 
-const alertsDisplay = (city) => {
-  console.log(typeof sens);
-  console.log(typeof city);
-  let a = city.alerts;
-  console.log(typeof a);
-  console.log(a);
-  let alertss = city.alerts;
-  console.log(alertss);
-  if (alertss === undefined) {
-    console.log("test");
-  } else {
-    alertPop(trainel);
-  }
-};
-
 alertBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (cityLoad == "sens") {
-    alertsDisplay(sens);
+    alertDefined(sens);
   } else if (cityLoad == "paris") {
-    alertsDisplay(paris);
+    alertDefined(paris);
   } else if (cityLoad == "london") {
-    alertsDisplay(london);
+    alertDefined(london);
   } else if (cityLoad == "trainel") {
-    alertsDisplay(trainel);
+    alertDefined(trainel);
   }
 });
