@@ -448,14 +448,17 @@ const displayAlert = (city) => {
 };
 
 const alertPop = (city) => {
+  alertEvent = city.alerts[0].event;
+  alertSender = city.alerts[0].sender_name;
+  alertDescription = city.alerts[0].description;
   let alertWindow = window.open(
     "alert.html",
     "alert",
-    "width=auto,height=auto,menubar = no, scrollbars = no"
+    "width=auto,height=auto,menubar = no, scrollbars = no, location = no"
   );
-  alertWindow.onload = function () {
-    alertWindow.window.displayAlert(city);
-  };
+  alertWindow.document.write(alertEvent);
+  alertWindow.document.write(alertSender);
+  alertWindow.document.write(alertDescription);
 };
 
 const display = (city) => {
