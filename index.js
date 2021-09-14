@@ -454,7 +454,7 @@ const alertPop = (city) => {
     "width=auto,height=auto,menubar = no, scrollbars = no, location = no"
   );
   alertWindow.document.write('<link rel="stylesheet" href="style.css">');
-  alertWindow.document.write("<title>Alerts " + cityName + "</title>");
+  alertWindow.document.write("<title>" + cityName + " alerts</title>");
   alertWindow.document.write(
     '<body> <h1 style="text-align : center">' +
       cityName +
