@@ -418,7 +418,10 @@ const displayHours = (city) => {
     hourFeeling[i].textContent = tempFeeling + "°";
     hourDesc[i].textContent = city.hourly[i].weather[0].description;
     hourSpeed[i].textContent =
-      city.hourly[i].wind_speed + " - " + city.hourly[i].wind_gust + " Km/H";
+      Math.trunc(city.hourly[i].wind_speed) +
+      " - " +
+      Math.trunc(city.hourly[i].wind_gust) +
+      " Km/H";
 
     let windDegre = city.hourly[i].wind_deg;
     if (windDegre >= 348 && windDegre <= 11) {

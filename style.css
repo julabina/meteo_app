@@ -344,6 +344,14 @@ h1 {
   font-size: 1.6em;
 }
 
+.hourFeelingContainer {
+  display: flex;
+}
+
+.hourFeelingContainer span {
+  margin-left: 7px;
+}
+
 @media screen and (max-width: 1260px) {
   main {
     margin: 10px 20px;
@@ -413,5 +421,181 @@ h1 {
     width: 20px;
     margin: initial;
     width: 200px;
+  }
+
+  .hoursDayContainer {
+    grid-row-start: 13;
+    grid-column: 1 / 17;
+  }
+
+  .hours {
+    justify-content: space-between;
+  }
+
+  .hourTempContainer {
+    margin-right: initial;
+  }
+
+  .rainContainer {
+    grid-row-start: 11;
+    grid-column: 2 / 16;
+  }
+}
+
+/* MEDIA MOBILE */
+
+@media screen and (max-width: 640px) {
+  .bannerImg img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .bannerTempPara {
+    font-size: 0.8em;
+  }
+
+  .bannerTempMax {
+    color: red;
+    font-weight: 700;
+    font-size: 0.8em;
+  }
+
+  .bannerTempMin {
+    color: blue;
+    font-weight: 700;
+    font-size: 0.8em;
+  }
+
+  .bannerInfos h3 {
+    font-size: 0.8em;
+  }
+
+  main {
+    margin: 10px 20px;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: 80px 50px 100px repeat(6, 1fr) 30px auto 30px auto 40px 100px;
+  }
+
+  #citySelect {
+    display: none;
+  }
+
+  .bannerSens {
+    grid-area: 2 / 1 / 3 / 5;
+  }
+
+  .bannerParis {
+    grid-area: 2 / 5 / 3 / 9;
+  }
+
+  .bannerLondon {
+    grid-area: 2 / 9 / 3 / 13;
+  }
+
+  .bannerTrainel {
+    grid-area: 2 / 13 / 3 / 17;
+  }
+
+  .bannerMeteoContainer {
+    justify-content: center;
+  }
+
+  .sunriseContainer {
+    grid-column: 11 / 16;
+  }
+
+  .infosContainer {
+    grid-column: 1 / 17;
+  }
+
+  h1 {
+    grid-column: 1 / 17;
+  }
+
+  .rightInfosContainer {
+    /* grid-area: 6 / 1 / 7 / 17; */
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .weekContainer {
+    grid-column: 1 / 17;
+    grid-row: 7 / 10;
+  }
+
+  .right-rainHours {
+    width: 200px;
+    margin: initial;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .right-alert {
+    width: 200px;
+    margin: initial;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .right-other {
+    width: 20px;
+    margin: initial;
+    width: 200px;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .hoursDayContainer {
+    grid-row-start: 13;
+    grid-column: 1 / 17;
+  }
+
+  .hours {
+    justify-content: space-between;
+  }
+
+  .hourTempContainer {
+    margin-right: initial;
+  }
+
+  .rainContainer {
+    grid-row-start: 11;
+    grid-column: 2 / 16;
+  }
+
+  .infosContainer {
+    justify-content: center;
+  }
+
+  .humidity {
+    display: none;
+  }
+
+  .hoursLeftContainer {
+    margin-right: initial;
+  }
+
+  .hourWind {
+    font-size: 0.8em;
+  }
+
+  #day4 {
+    display: none;
+  }
+  #day5 {
+    display: none;
+  }
+  #day6 {
+    display: none;
+  }
+  #day7 {
+    display: none;
+  }
+
+  .week {
+    width: auto;
   }
 }
