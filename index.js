@@ -5,10 +5,12 @@ const londonBanner = document.querySelector(".bannerLondon");
 const rainBtn = document.querySelector(".right-rainHours");
 const alertBtn = document.querySelector(".right-alert");
 const rainContainer = document.querySelector(".rainContainer");
+const currentCity = document.getElementById("city");
 let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
+const APIKey = "f0bc558c25b59fd4f095d9f96b29fb6c";
 
 /* fetch(
-  "https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+  `https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=${APIKey}`
 )
   .then((res) => res.json())
   .then((data) => {
@@ -17,7 +19,7 @@ let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
   }); 
   
   fetch(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=48.52&lon=2.19&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+    `https://api.openweathermap.org/data/2.5/onecall?lat=48.52&lon=2.19&units=metric&appid=${APIKey}`
     )
     .then((res) => res.json())
     .then((data) => {
@@ -25,7 +27,7 @@ let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
     });
     
     fetch(
-      "https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+      `https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=${APIKey}`
       )
       .then((res) => res.json())
       .then((data) => {
@@ -33,7 +35,7 @@ let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
       });
       
       fetch(
-        "https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+        `https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=${APIKey}`
         )
         .then((res) => res.json())
         .then((data) => {
@@ -42,7 +44,7 @@ let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
 
 async function trainelAsync() {
   let res = await fetch(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+    `https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   trainel = data;
@@ -50,7 +52,7 @@ async function trainelAsync() {
 
 async function parisAsync() {
   let res = await fetch(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=48.52&lon=2.19&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+    `https://api.openweathermap.org/data/2.5/onecall?lat=48.52&lon=2.19&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   paris = data;
@@ -58,7 +60,7 @@ async function parisAsync() {
 
 async function sensAsync() {
   let res = await fetch(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+    `https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   sens = data;
@@ -66,7 +68,7 @@ async function sensAsync() {
 
 async function londonAsync() {
   let res = await fetch(
-    "https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=f0bc558c25b59fd4f095d9f96b29fb6c"
+    `https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   london = data;
@@ -158,7 +160,6 @@ const DisplayTop = (city) => {
   const currentSpeedWind = document.querySelector(".windSpeed");
   const currentWindDeg = document.querySelector(".windDeg");
   const currentAlertContainer = document.querySelector(".alertContainer");
-  const currentCity = document.getElementById("city");
 
   let tempRounded, feelRounded;
 
@@ -217,7 +218,12 @@ const DisplayTop = (city) => {
 
   let speedWind = Math.round(city.current.wind_speed);
   let gustWind = Math.round(city.current.wind_gust);
-  currentSpeedWind.textContent = speedWind + " - " + gustWind + " km/h";
+
+  if (isNaN(gustWind)) {
+    currentSpeedWind.textContent = speedWind + " - " + speedWind + " km/h";
+  } else {
+    currentSpeedWind.textContent = speedWind + " - " + gustWind + " km/h";
+  }
   let windDegre = city.current.wind_deg;
   if (windDegre >= 348 && windDegre <= 11) {
     currentWindDeg.textContent = "North";
@@ -465,7 +471,7 @@ const displayRain = (city) => {
     rainDtMinute = ("0" + rainDtMinute).slice(-2);
     hourRainContainer[a].textContent = rainDtHour + "h" + rainDtMinute;
     precipitationContainer[a].textContent =
-      "Precipitation : " + city.minutely[i].precipitation + " %";
+      "Precipitation : " + Math.trunc(city.minutely[i].precipitation) + " %";
     a++;
   }
 };
@@ -588,4 +594,27 @@ const allAsync = () => {
   sensAsync();
 };
 
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    let long = position.coords.longitude;
+    let lat = position.coords.latitude;
+    APICall(long, lat);
+  });
+}
+
 allAsync();
+
+const APICall = (long, lat) => {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${APIKey}`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      currentGeoCity = data;
+      display(currentGeoCity);
+      cityName = currentGeoCity.timezone;
+      currentCity.textContent = cityName;
+    });
+};
