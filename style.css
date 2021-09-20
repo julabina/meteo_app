@@ -527,25 +527,24 @@ h1 {
     width: 200px;
     margin: initial;
     margin-top: 10px;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
   }
 
-  .right-alert {
+  /* .right-alert {
     width: 200px;
     margin: initial;
     margin-top: 10px;
     height: 30px;
     line-height: 30px;
-  }
+  } */
 
   .right-other {
     width: 20px;
     margin: initial;
     width: 200px;
-    margin-top: 10px;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
   }
 
   .hoursDayContainer {
@@ -575,7 +574,7 @@ h1 {
   }
 
   .hoursLeftContainer {
-    margin-right: initial;
+    margin-right: 10px;
   }
 
   .hourWind {
@@ -597,5 +596,14 @@ h1 {
 
   .week {
     width: auto;
+  }
+
+  .right-alert {
+    display: none;
+  }
+
+  .right-rainHours:hover {
+    background: inherit;
+    cursor: inherit;
   }
 }
