@@ -356,12 +356,13 @@ h1 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: cyan;
+  background: white;
   transition: opacity 1.1s ease-out;
   z-index: 1000;
 }
 
 .overlayIconLoading img {
+  filter: invert();
   width: 150px;
   position: absolute;
   top: 50%;

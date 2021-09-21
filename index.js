@@ -43,36 +43,48 @@ const APIKey = "f0bc558c25b59fd4f095d9f96b29fb6c";
           london = data;
         }); */
 
-async function trainelAsync() {
+async function trainelAsync(clicked) {
   let res = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=48.41&lon=3.45&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   trainel = data;
+  if (clicked == true) {
+    display(trainel);
+  }
 }
 
-async function parisAsync() {
+async function parisAsync(clicked) {
   let res = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=48.52&lon=2.19&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   paris = data;
+  if (clicked == true) {
+    display(paris);
+  }
 }
 
-async function sensAsync() {
+async function sensAsync(clicked) {
   let res = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=48.11&lon=3.16&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   sens = data;
+  if (clicked == true) {
+    display(sens);
+  }
 }
 
-async function londonAsync() {
+async function londonAsync(clicked) {
   let res = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=51.30&lon=0.07&units=metric&appid=${APIKey}`
   );
   let data = await res.json();
   london = data;
+  if (clicked == true) {
+    display(london);
+  }
 }
 
 const displayBanner = () => {
@@ -540,31 +552,27 @@ const alertDefined = (city) => {
 };
 
 trainelBanner.addEventListener("click", () => {
-  trainelAsync();
   cityName = "Trainel";
   cityLoad = "trainel";
-  display(trainel);
+  trainelAsync(true);
 });
 
 parisBanner.addEventListener("click", () => {
-  parisAsync();
   cityName = "Paris";
   cityLoad = "paris";
-  display(paris);
+  parisAsync(true);
 });
 
 sensBanner.addEventListener("click", () => {
-  sensAsync();
   cityName = "Sens";
   cityLoad = "sens";
-  display(sens);
+  sensAsync(true);
 });
 
 londonBanner.addEventListener("click", () => {
-  londonAsync();
   cityName = "London";
   cityLoad = "london";
-  display(london);
+  londonAsync(true);
 });
 
 rainBtn.addEventListener("click", (e) => {
@@ -599,11 +607,21 @@ const allAsync = () => {
 };
 
 if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition((position) => {
-    let long = position.coords.longitude;
-    let lat = position.coords.latitude;
-    APICall(long, lat);
-  });
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      let long = position.coords.longitude;
+      let lat = position.coords.latitude;
+      APICall(long, lat);
+    },
+    () => {
+      cityName = "Paris";
+      cityLoad = "paris";
+      display(paris);
+      loadingContainer.classList.add("iconInvisible");
+      setTimeout(invisibleIcon, 1000);
+      alert("Please enable location on your browser");
+    }
+  );
 }
 
 allAsync();
