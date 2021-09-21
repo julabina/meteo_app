@@ -632,6 +632,11 @@ const invisibleIcon = () => {
   loadingContainer.classList.add("invisible");
 };
 
+const load = () => {
+  loadingContainer.classList.add("iconInvisible");
+  setTimeout(invisibleIcon, 1000);
+};
+
 const APICall = (long, lat) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${APIKey}`
@@ -645,7 +650,5 @@ const APICall = (long, lat) => {
       cityName = currentGeoCity.timezone;
       currentCity.textContent = cityName;
     });
-
-  loadingContainer.classList.add("iconInvisible");
-  setTimeout(invisibleIcon, 1000);
+  setTimeout(load, 2000);
 };
