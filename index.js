@@ -6,6 +6,7 @@ const rainBtn = document.querySelector(".right-rainHours");
 const alertBtn = document.querySelector(".right-alert");
 const rainContainer = document.querySelector(".rainContainer");
 const currentCity = document.getElementById("city");
+const loadingContainer = document.querySelector(".overlayIconLoading");
 let trainel, paris, sunrise, sunset, dt, today, cityName, cityLoad;
 const APIKey = "f0bc558c25b59fd4f095d9f96b29fb6c";
 
@@ -607,6 +608,10 @@ if (navigator.geolocation) {
 
 allAsync();
 
+const invisibleIcon = () => {
+  loadingContainer.classList.add("invisible");
+};
+
 const APICall = (long, lat) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${APIKey}`
@@ -620,4 +625,7 @@ const APICall = (long, lat) => {
       cityName = currentGeoCity.timezone;
       currentCity.textContent = cityName;
     });
+
+  loadingContainer.classList.add("iconInvisible");
+  setTimeout(invisibleIcon, 1000);
 };
