@@ -606,14 +606,18 @@ const allAsync = () => {
   sensAsync();
 };
 
+allAsync();
+
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       let long = position.coords.longitude;
       let lat = position.coords.latitude;
+      allAsync();
       APICall(long, lat);
     },
     () => {
+      allAsync();
       cityName = "Paris";
       cityLoad = "paris";
       display(paris);
@@ -623,8 +627,6 @@ if (navigator.geolocation) {
     }
   );
 }
-
-allAsync();
 
 const invisibleIcon = () => {
   loadingContainer.classList.add("invisible");
