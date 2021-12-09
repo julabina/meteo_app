@@ -22,12 +22,6 @@ main {
   grid-template-columns: 20% repeat(11, 1fr) 20%;
   grid-template-rows: 80px 50px 100px repeat(5, 1fr) 30px auto 30px auto 40px 100px;
   background: rgb(2, 0, 36);
-  background: linear-gradient(
-    318deg,
-    rgba(2, 0, 36, 0.8799720571822479) 0%,
-    rgba(148, 43, 25, 0.8435574913559174) 64%,
-    rgba(32, 120, 186, 0.7399160347732843) 100%
-  );
 }
 
 h1 {
